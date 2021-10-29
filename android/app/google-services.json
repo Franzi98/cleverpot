@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "322770612399",
+    "project_id": "cleverpot-d0c1a",
+    "storage_bucket": "cleverpot-d0c1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322770612399:android:1b40d2a43e1eed8f3c245a",
+        "android_client_info": {
+          "package_name": "com.example.cleverpot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322770612399-k56ldu46cdkvoun68o1te6hhqooos2tr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cleverpot",
+            "certificate_hash": "b7e42a36067101723078c98b866ddc314bab8222"
+          }
+        },
+        {
+          "client_id": "322770612399-g51utsqjvgbfm56tclq3baieeksde4oc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXdJtI0j-nc1730ZiCbFmt4HBXvihy_Mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322770612399-g51utsqjvgbfm56tclq3baieeksde4oc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

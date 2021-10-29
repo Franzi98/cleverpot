@@ -1,0 +1,26 @@
+1.Getter Umidità terreno, luminosità, serbatoio acqua
+2.Impostare ore di lavoro (quando deve iniziare, quando deve finire)
+3.Setter valori coltivazione: umidità terreno, luminosità 
+
+LAYOUT: 
+    HOME:  
+        -valori umidità terreno,luminosità, serbatoio acqua, temperatura e umidità aria
+         //questi valori devono essere dinamici
+
+
+
+
+DA MIGLIORARE: 
+    Codice identificativo ESP per creare database ( pensavo mail e password)
+    qualcosa che non intacchi il codice (es mac dell'ESP).
+
+
+HOW TO: 
+    mandare input da app a esp e viceversa ( Es: condividere mail e password)
+
+
+
+
+--------------------------------------------------------------------------------
+PER ME: 
+    dbHelper ----> cambiare parametro value in ogni getter 
