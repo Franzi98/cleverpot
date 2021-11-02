@@ -1,16 +1,31 @@
-# cleverpot
+# Cleverpot
 
-A new Flutter project.
+Cleverpot è un'applicazione per gestire il tuo vaso domotico. 
+L'applicazione si occupa di ricevere e mandare dati al vaso, che è il cuore del progetto.
+Qui si trova solo il source-code dell'applicazione. 
+
+## Feature:
+La trasmissione dei dati fra vaso e applicazzione avviene tramite Realtime database Firebase di google. L'applicazione è in continuo ascolto ( solo in foreground, in modo da limitare il dispendio di batteria).
+
+## TODO:
+Switch fra White Mode e Dark mode
+Animazioni dei Widget
+Gestione più articolata degli errori
+
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Questo progetto è stato sviluppato con Flutter.
 
-A few resources to get you started if this is your first Flutter project:
+Un pò di risorse per iniziare con il tuo primo progetto Flutter: 
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Contributi
+
+Pull request sono bene accette. Per qualsiasi problema aprire un issue.
+
+## Contatti

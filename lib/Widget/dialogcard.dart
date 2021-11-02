@@ -30,7 +30,13 @@ class _DialogCardState extends State<DialogCard> {
   @override
   void initState() {
     super.initState();
-    setState(() {});
+    
+  }
+
+  void _updateValue(List list){
+    setState((){
+      _value = list.last; 
+    });
   }
 
   String selectFolder(String title) {
@@ -70,7 +76,7 @@ class _DialogCardState extends State<DialogCard> {
 
       setState(() {
         _records = data[selectFolder(widget.title)];
-        _value = _records.last;
+        
       });
     });
   }
@@ -101,6 +107,7 @@ class _DialogCardState extends State<DialogCard> {
     final double widhSize = MediaQuery.of(context).size.width;
 
     return AlertDialog(
+
       contentPadding: EdgeInsets.all(20),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30))),
