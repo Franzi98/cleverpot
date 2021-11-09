@@ -1,9 +1,8 @@
-import 'package:cleverpot/Class/Data.dart';
-import 'package:cleverpot/Helper/dbhelper.dart';
 import 'package:cleverpot/Home/home_drawer.dart';
+import 'package:cleverpot/Utily/Constants.dart';
 import 'package:cleverpot/Widget/card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +14,8 @@ class home_body extends StatefulWidget {
 }
 
 class _home_bodyState extends State<home_body> {
-  final FirebaseDatabase db = FirebaseDatabase(
-      databaseURL:
-          "https://cleverpot-d0c1a-default-rtdb.europe-west1.firebasedatabase.app");
+  final FirebaseDatabase db =
+      FirebaseDatabase(databaseURL: Constans.url_database);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String water = '';
   String light = '';
@@ -25,7 +23,6 @@ class _home_bodyState extends State<home_body> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
   }
@@ -36,36 +33,30 @@ class _home_bodyState extends State<home_body> {
         .reference()
         .child(_auth.currentUser.uid)
         .child("status")
-        .onValue
-        .listen((event) {
-      data = Map.from(event.snapshot.value);
-
-      setState(() {
-        water = data['Water'].toString();
-        light = data['Brightness'].toString();
-        humidity = data['Humidiy'].toString();
-      });
-    });
+        .once()
+        .then((value) => {
+              data = Map.of(value.value),
+              water = data['Water'].toString(),
+              light = data['Brightness'].toString(),
+              humidity = data['Humidity'].toString(),
+            });
   }
 
   @override
-  dbHelper _helper = dbHelper();
-
   Widget build(BuildContext context) {
-    getData();
     return FutureBuilder(
         future: getData(),
         builder: (context, snapshot) {
           if (!snapshot.hasError) {
             return Scaffold(
               appBar: AppBar(
-                title: Text("Home"),
-                backgroundColor: Colors.green[200],
+                title: const Text("Home"),
+                backgroundColor: Constans.colorAppBar,
               ),
               backgroundColor: Colors.green[100],
               drawer: home_drawer(),
               body: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.center,
                         colors: [Colors.green, Colors.greenAccent])),

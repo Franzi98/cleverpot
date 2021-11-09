@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cleverpot/Helper/authelper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cleverpot/Home/home_body.dart';
@@ -16,7 +15,7 @@ void initializeFlutterFirebase() async {
   try {
     await Firebase.initializeApp();
   } catch (e) {
-    print("Errore");
+    Text(e.toString());
   }
 }
 
@@ -39,11 +38,12 @@ class Home_App extends StatefulWidget {
 class _Home_AppState extends State<Home_App> {
   @override
   Widget build(BuildContext context) {
-    authHelper auth = authHelper(context);
-    return WillPopScope(
-        child: home_body(),
-        onWillPop: () {
-          exit(0);
-        });
+    return MaterialApp(
+      home: WillPopScope(
+          child: home_body(),
+          onWillPop: () {
+            exit(0);
+          }),
+    );
   }
 }

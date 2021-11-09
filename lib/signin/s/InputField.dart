@@ -21,7 +21,7 @@ class InputField extends StatelessWidget {
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Color(4294638330)))),
-          child: TextField(
+          child: TextFormField(
             onChanged: onEmailChanged,
             decoration: InputDecoration(
                 hintText: "Enter your email",
@@ -33,7 +33,7 @@ class InputField extends StatelessWidget {
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Color(4294638330)))),
-          child: TextField(
+          child: TextFormField(
             obscureText: true,
             onChanged: onPasswordChanged,
             decoration: InputDecoration(

@@ -1,5 +1,6 @@
 import 'package:cleverpot/Activity/home.dart';
 import 'package:cleverpot/Activity/signin.dart';
+import 'package:cleverpot/Utily/myThemes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,7 +36,7 @@ class _AppState extends State<App> {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return Text(
+          return const Text(
             "ERRORE",
             textDirection: TextDirection.ltr,
           );
@@ -48,6 +49,7 @@ class _AppState extends State<App> {
           } else {
             print(user.email);
             return MaterialApp(
+              darkTheme: MyThemes.darkTheme,
               debugShowCheckedModeBanner: false,
               home: Home(),
             );
@@ -55,7 +57,7 @@ class _AppState extends State<App> {
         }
 
         //TODO: Pagina di caricamento
-        return Text(
+        return const Text(
           "Loading",
           textDirection: TextDirection.ltr,
         );

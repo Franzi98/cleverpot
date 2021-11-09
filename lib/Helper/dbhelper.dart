@@ -1,17 +1,11 @@
-import 'dart:collection';
-import 'dart:ffi';
-
-import 'package:cleverpot/Class/Data.dart';
-import 'package:cleverpot/Widget/axischart.dart';
+import 'package:cleverpot/Utily/Constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 
 class dbHelper {
-  final FirebaseDatabase db = FirebaseDatabase(
-      databaseURL:
-          "https://cleverpot-d0c1a-default-rtdb.europe-west1.firebasedatabase.app");
+  final FirebaseDatabase db =
+      FirebaseDatabase(databaseURL: Constans.url_database);
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   ///SETTER:
@@ -22,6 +16,19 @@ class dbHelper {
     Map umidita = {'0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0};
     Map luminosita = {'0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0};
     Map serbatoio = {'0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0};
+    Map profile = {
+      'imgPath': "",
+      'name': _auth.currentUser.uid,
+      'about': " ",
+      'isDarkMode': false,
+      'email': _auth.currentUser.email
+    };
+
+    await db
+        .reference()
+        .child(_auth.currentUser.uid)
+        .child("profile")
+        .set(profile);
 
     await db
         .reference()
@@ -48,7 +55,7 @@ class dbHelper {
         .reference()
         .child(_auth.currentUser.uid)
         .child("status")
-        .child("Humidiy")
+        .child("Humidity")
         .set(0);
 
     await db

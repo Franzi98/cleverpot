@@ -1,11 +1,9 @@
-import 'dart:ffi';
-
-import 'package:cleverpot/Helper/dbhelper.dart';
+import 'package:cleverpot/Utily/Constants.dart';
+import 'package:cleverpot/Utily/Function.dart';
 import 'package:cleverpot/Widget/axischart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DialogCard extends StatefulWidget {
   DialogCard({Key? key, required this.value, required this.title})
@@ -19,36 +17,15 @@ class DialogCard extends StatefulWidget {
 }
 
 class _DialogCardState extends State<DialogCard> {
-  final FirebaseDatabase db = FirebaseDatabase(
-      databaseURL:
-          "https://cleverpot-d0c1a-default-rtdb.europe-west1.firebasedatabase.app");
+  final FirebaseDatabase db =
+      FirebaseDatabase(databaseURL: Constans.url_database);
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  dbHelper _helper = dbHelper();
   int _value = 0;
   List _records = [];
 
   @override
   void initState() {
     super.initState();
-    
-  }
-
-  void _updateValue(List list){
-    setState((){
-      _value = list.last; 
-    });
-  }
-
-  String selectFolder(String title) {
-    if (title == 'Umidità') {
-      return 'Humidity';
-    } else if (title == 'Luminosità') {
-      return 'Brightness';
-    } else if (title == 'Serbatoio') {
-      return 'Water';
-    } else {
-      return 'error';
-    }
   }
 
   Future updateData() async {
@@ -59,34 +36,9 @@ class _DialogCardState extends State<DialogCard> {
           .reference()
           .child(_auth.currentUser.uid)
           .child("records")
-          .child(selectFolder(widget.title))
+          .child(FunctionHelper.selectFolder(widget.title))
           .set(_records);
     }
-  }
-
-  Future getData() async {
-    Map data = {};
-    await db
-        .reference()
-        .child(_auth.currentUser.uid)
-        .child("records")
-        .onValue
-        .listen((event) {
-      data = Map.from(event.snapshot.value);
-
-      setState(() {
-        _records = data[selectFolder(widget.title)];
-        
-      });
-    });
-  }
-
-  void updateRecords() {
-    //_records = _records.sublist(1);
-
-    setState(() {
-      //_records.add(_value);
-    });
   }
 
   void _incrementValue() {
@@ -107,9 +59,8 @@ class _DialogCardState extends State<DialogCard> {
     final double widhSize = MediaQuery.of(context).size.width;
 
     return AlertDialog(
-
-      contentPadding: EdgeInsets.all(20),
-      shape: RoundedRectangleBorder(
+      contentPadding: const EdgeInsets.all(20),
+      shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30))),
       backgroundColor: Colors.red[300],
       content: Container(
@@ -120,14 +71,9 @@ class _DialogCardState extends State<DialogCard> {
             Container(
                 height: heigthSize / 2,
                 width: widhSize,
-                child: FutureBuilder(
-                    future: getData(),
-                    builder: (_, snapshot) {
-                      return AxisChart(_records);
-                    })),
-            //child: AxisChart(_records)),
+                child: AxisChart(widget.title)),
             Container(
-                padding: EdgeInsets.only(top: 0),
+                padding: const EdgeInsets.only(top: 0),
                 height: heigthSize / 2 / 2 / 2,
                 width: widhSize,
                 decoration: BoxDecoration(
@@ -135,7 +81,7 @@ class _DialogCardState extends State<DialogCard> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(),
+                  padding: const EdgeInsets.symmetric(),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -145,7 +91,7 @@ class _DialogCardState extends State<DialogCard> {
                               color: Colors.white24),
                           child: FloatingActionButton(
                             heroTag: "btn1",
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_left,
                               color: Colors.white,
                             ),
@@ -158,10 +104,9 @@ class _DialogCardState extends State<DialogCard> {
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white24),
                         child: FloatingActionButton(
-                          heroTag: "btn2",
-                          child: Text("$_value"),
-                          onPressed: () {},
-                        ),
+                            heroTag: "btn2",
+                            child: Text("$_value"),
+                            onPressed: () {}),
                       ),
                       Container(
                           decoration: BoxDecoration(
@@ -172,7 +117,7 @@ class _DialogCardState extends State<DialogCard> {
                             onPressed: () {
                               _incrementValue();
                             },
-                            child: Icon(Icons.arrow_right),
+                            child: const Icon(Icons.arrow_right),
                           ))
                     ],
                   ),
@@ -186,7 +131,7 @@ class _DialogCardState extends State<DialogCard> {
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.green))),
+                      side: const BorderSide(color: Colors.green))),
               backgroundColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
                   if (states.contains(MaterialState.pressed))
@@ -199,19 +144,17 @@ class _DialogCardState extends State<DialogCard> {
               ),
             ),
             onPressed: () async {
-              setState(() {});
-
               Navigator.of(context).pop();
 
               ///salvare dati su db;
             },
-            child: Text("Salva")),
+            child: const Text("Salva")),
         ElevatedButton(
             style: ButtonStyle(
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.green))),
+                      side: const BorderSide(color: Colors.green))),
               backgroundColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
                   if (states.contains(MaterialState.pressed))
@@ -226,7 +169,7 @@ class _DialogCardState extends State<DialogCard> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text("Chiudi")),
+            child: const Text("Chiudi")),
       ],
     );
   }

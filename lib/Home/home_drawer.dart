@@ -1,7 +1,9 @@
+import 'package:cleverpot/Activity/Profile.dart';
 import 'package:cleverpot/Activity/signin.dart';
+import 'package:cleverpot/Class/User.dart';
 import 'package:cleverpot/Helper/authelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 
 class home_drawer extends StatelessWidget {
@@ -10,41 +12,46 @@ class home_drawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     authHelper auth = authHelper(context);
+
     return Drawer(
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(auth.getUID()),
             accountEmail: Text(FirebaseAuth.instance.currentUser.email),
-            decoration: BoxDecoration(color: Colors.green),
+            decoration: const BoxDecoration(color: Colors.green),
           ),
           Container(
             color: Colors.white24,
             child: ListTile(
-              leading: Icon(Icons.person),
-              title: Text("Profilo"),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Profile(user: buildUser())));
+              },
+              leading: const Icon(Icons.person),
+              title: const Text("Profilo"),
               shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.black, width: 0.5),
+                  side: const BorderSide(color: Colors.black, width: 0.5),
                   borderRadius: BorderRadius.circular(5)),
             ),
           ),
           Container(
             color: Colors.white24,
             child: ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Impostazioni"),
+              leading: const Icon(Icons.settings),
+              title: const Text("Impostazioni"),
               shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.black, width: 0.5),
+                  side: const BorderSide(color: Colors.black, width: 0.5),
                   borderRadius: BorderRadius.circular(5)),
             ),
           ),
           Container(
             color: Colors.white24,
             child: ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text("Logout"),
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text("Logout"),
               shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.black, width: 0.5),
+                  side: const BorderSide(color: Colors.black, width: 0.5),
                   borderRadius: BorderRadius.circular(5)),
               onTap: () {
                 Navigator.pushReplacement(
@@ -56,5 +63,16 @@ class home_drawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  UserClass buildUser() {
+    UserClass user = UserClass(
+        imagePath: "dasfasd",
+        about: "asfafs",
+        isDarkMode: false,
+        name: "asfas",
+        email: "asfafa");
+
+    return user;
   }
 }

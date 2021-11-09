@@ -17,10 +17,6 @@ class My_Card extends StatefulWidget {
 }
 
 class _My_CardState extends State<My_Card> {
-  final FirebaseDatabase db = FirebaseDatabase(
-      databaseURL:
-          "https://cleverpot-d0c1a-default-rtdb.europe-west1.firebasedatabase.app");
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
     // TODO: implement initState
@@ -71,6 +67,5 @@ class _My_CardState extends State<My_Card> {
         ),
       ),
     );
-    ;
   }
 }

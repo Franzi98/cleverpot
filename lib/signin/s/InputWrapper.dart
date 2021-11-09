@@ -78,7 +78,6 @@ class _InputWrapperState extends State<InputWrapper> {
                             pageBuilder: (BuildContext context, _, __) {
                               return Registration();
                             }));
-                        print("Cliccato");
                       })),
           ),
         ],

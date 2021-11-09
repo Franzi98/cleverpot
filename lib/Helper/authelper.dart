@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cleverpot/Activity/home.dart';
 import 'package:cleverpot/Helper/dbhelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,8 +12,7 @@ class authHelper {
 
   Future signIn(String email, String pasword) async {
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: pasword);
+      await auth.signInWithEmailAndPassword(email: email, password: pasword);
       Navigator.of(context)
           .push(PageRouteBuilder(pageBuilder: (BuildContext context, _, __) {
         return Home();
@@ -23,7 +20,7 @@ class authHelper {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Utente non trovato"),
+          content: const Text("Utente non trovato"),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           action: SnackBarAction(
@@ -33,7 +30,17 @@ class authHelper {
         ));
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Password errata"),
+          content: const Text("Password errata"),
+          action: SnackBarAction(
+            label: "OK",
+            onPressed: () {},
+          ),
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text("Errore"),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           action: SnackBarAction(
             label: "OK",
             onPressed: () {},
@@ -45,7 +52,7 @@ class authHelper {
 
   Future signUp(String email, String password) async {
     try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+      await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       await dbhelper.initialize_user();
       Navigator.of(context)
@@ -55,7 +62,7 @@ class authHelper {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Password troppo debole"),
+          content: const Text("Password troppo debole"),
           action: SnackBarAction(
             label: "OK",
             onPressed: () {},
@@ -63,7 +70,7 @@ class authHelper {
         ));
       } else if (e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Utente già registrato"),
+          content: const Text("Utente già registrato"),
           action: SnackBarAction(
             label: "OK",
             onPressed: () {},
@@ -97,21 +104,23 @@ class authHelper {
     await auth.signOut();
   }
 
+  String getUID() {
+    return auth.currentUser.uid;
+  }
+
   Future deleteUser() async {
     try {
       await FirebaseAuth.instance.currentUser!.delete();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
-        print(
-            'The user must reauthenticate before this operation can be executed.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text("utente eliminato"),
+          action: SnackBarAction(
+            label: "OK",
+            onPressed: () {},
+          ),
+        ));
       }
     }
   }
-
-  String getUID() {
-    return auth.currentUser.uid;
-  }
-
-  //Classe SnackBar
-
 }
