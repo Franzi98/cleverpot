@@ -45,7 +45,8 @@ class _AppState extends State<App> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           if (user == null) {
-            return MaterialApp(home: Signup());
+            return MaterialApp(
+                debugShowCheckedModeBanner: false, home: Signup());
           } else {
             print(user.email);
             return MaterialApp(

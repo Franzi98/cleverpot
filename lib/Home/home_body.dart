@@ -24,7 +24,6 @@ class _home_bodyState extends State<home_body> {
   @override
   void initState() {
     super.initState();
-    getData();
   }
 
   Future getData() async {
@@ -33,9 +32,9 @@ class _home_bodyState extends State<home_body> {
         .reference()
         .child(_auth.currentUser.uid)
         .child("status")
-        .once()
-        .then((value) => {
-              data = Map.of(value.value),
+        .onValue
+        .map((value) => {
+              data = Map.of(value.snapshot.value),
               water = data['Water'].toString(),
               light = data['Brightness'].toString(),
               humidity = data['Humidity'].toString(),
